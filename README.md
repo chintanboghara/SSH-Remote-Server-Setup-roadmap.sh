@@ -60,3 +60,35 @@
    ssh alias1
    ssh alias2
    ```
+
+### **5. Stretch Goal: Install and Configure fail2ban**
+1. **Install fail2ban**:
+   ```bash
+   sudo apt update
+   sudo apt install fail2ban
+   ```
+2. **Configure fail2ban**:
+   - Copy the default configuration:
+     ```bash
+     sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+     ```
+   - Edit `jail.local` to enable the `sshd` jail and adjust ban settings:
+     ```bash
+     [sshd]
+     enabled = true
+     port = ssh
+     maxretry = 5
+     bantime = 600
+     ```
+   - Restart fail2ban:
+     ```bash
+     sudo systemctl restart fail2ban
+     ```
+3. **Check Status**:
+   ```bash
+   sudo fail2ban-client status
+   ```
+
+---
+
+By completing these steps, you’ll have a secure server accessible via two SSH keys and basic protection against brute-force attacks with fail2ban.
